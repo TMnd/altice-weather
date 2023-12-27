@@ -1,0 +1,14 @@
+.strength-slider {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
+
+  label {
+    padding-top: 15px;
+  }
+
+  mat-slider {
+    width: 300px;
+  }
+}

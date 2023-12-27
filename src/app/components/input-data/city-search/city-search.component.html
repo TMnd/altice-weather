@@ -1,0 +1,23 @@
+<mat-form-field class="example-full-width">
+  <mat-label>City search</mat-label>
+  <input 
+    type="text" 
+    matInput 
+    [formControl]="myControl" 
+    [matAutocomplete]="auto" 
+    (input)="delayedSearch($event)"
+    (keydown)="instantSearch($event)"
+  >
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+    @for (option of filteredOptions | async; track option) {
+      <mat-option [value]="option">
+        {{option.name}}
+        <span *ngIf="option.state">
+          -
+          {{option.state}}
+        </span>
+        <span class="fi fi-{{ option.country.toLowerCase() }}"></span>
+      </mat-option>
+    }
+  </mat-autocomplete>
+</mat-form-field>
