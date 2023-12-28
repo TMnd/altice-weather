@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {AsyncPipe, CommonModule} from '@angular/common';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { Observable, map, of, startWith } from 'rxjs';
-import { City } from '../../../model/city';
-import { OpenWeather } from '../../../services/open-weather.service';
+import { Observable, map, startWith } from 'rxjs';
+import { City } from '../../../shared/models/city';
+import { OpenWeather } from '../../../shared/services/open-weather.service';
+import { InternalizationPipe } from '../../../shared/pipes/i18n.pipe';
 
 
 @Component({
@@ -19,12 +20,13 @@ import { OpenWeather } from '../../../services/open-weather.service';
     MatInputModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    AsyncPipe
+    AsyncPipe,
+    InternalizationPipe
   ],
   templateUrl: './city-search.component.html',
   styleUrl: './city-search.component.scss'
 })
-export class CitySearchComponent {
+export class CitySearchComponent implements OnInit{
   myControl = new FormControl<string | City>('');
   options: City[] = [];
   filteredOptions: Observable<City[]> | undefined;
@@ -34,10 +36,6 @@ export class CitySearchComponent {
     private openWeather: OpenWeather
   ){}
 
-  displayFn(city: City): string {
-    return city && city.name ? city.name : '';
-  }
-
   private _filter(name: string): City[] {
     const filterValue = name.toLowerCase();
 
@@ -45,7 +43,7 @@ export class CitySearchComponent {
   }
 
   private searchCallBack = (insertedValue: string) => {
-    this.openWeather.getCityData(
+    this.openWeather.getCityList(
       insertedValue,
       (cities: City[])=>{
         this.options = [];
@@ -68,6 +66,22 @@ export class CitySearchComponent {
           }
         });
       });
+  }
+
+  private processCityData = (data: any) => {
+    console.log(data);
+  }
+
+  ngOnInit(): void {
+    this.myControl.valueChanges.subscribe((newValue) => {
+      if (newValue instanceof Object) {
+        this.openWeather.getCityData(newValue.lat, newValue.lon, this.processCityData);
+      }
+    });
+  }
+
+  displayFn(city: City): string {
+    return city && city.name ? city.name : '';
   }
 
   //It trigger the function after 1s of no interation

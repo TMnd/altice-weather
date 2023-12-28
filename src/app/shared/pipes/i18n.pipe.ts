@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from "@angular/core";
 import { I18nService } from "../services/i18n.service";
 
 @Pipe({
-    name: 'translate'
+    name: 'translate',
+    standalone: true
 })
 export class InternalizationPipe implements PipeTransform {
 
@@ -12,7 +13,6 @@ export class InternalizationPipe implements PipeTransform {
 
     transform(value: string): string {
         const translatedValue = this.i18nService.getValue(value);
-        console.log(translatedValue);
         return translatedValue;
     }
 }
