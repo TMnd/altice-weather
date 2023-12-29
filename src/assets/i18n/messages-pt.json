@@ -1,5 +1,14 @@
 {
     "form.title": "Formulario de dados",
     "form.city.search": "Insira o nome da cidade",
-    "form.network.strength": "Força da rede:"
+    "form.network.strength": "Força da rede:",
+    "form.no.input.detected": "Insira um nome de cidade",
+    "form.input.error": "Erro ao adquirir dados",
+    "form.submit": "Salvar",
+    "form.cancel": "Cancel",
+    "data.preview.weather": "Clima",
+    "data.preview.humidity": "Humidade",
+    "data.preview.temperature": "Temperatura",
+    "data.preview.pressure": "Pressão",
+    "data.preview.sea_level": "Nível do mar"
 }

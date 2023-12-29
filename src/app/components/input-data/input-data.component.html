@@ -1,7 +1,14 @@
 <div class="form-area">
    <h2>{{ 'form.title' | translate }}</h2>
-   <div class="example-form">
+   <div class="form">
       <app-city-search></app-city-search>
       <app-strength-slider></app-strength-slider>
+   </div>
+   <div class="preview-area">
+      <app-city-preview></app-city-preview>
+   </div>
+   <div class="action-area">
+      <button mat-stroked-button (click)="resetForm()">{{ 'form.cancel' | translate }}</button>
+      <button mat-flat-button color="primary" [disabled]="isDisabled">{{ 'form.submit' | translate }}</button>
    </div>
 </div>

@@ -1,0 +1,24 @@
+<div *ngIf="previewData">
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'data.preview.weather' | translate }}</th>
+                <th>{{ 'data.preview.temperature' | translate }}</th>
+                <th>{{ 'data.preview.humidity' | translate }}</th>
+                <th>{{ 'data.preview.pressure' | translate }}</th>
+                <th>{{ 'data.preview.sea_level' | translate }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <i class="wi wi-night-sleet custom-size"></i>
+                </td>
+                <td>{{ previewData.temperature }} ºC</td>
+                <td>{{ previewData.humidity }} %</td>
+                <td>{{ previewData.pressure }} Pa</td>
+                <td>{{ previewData.sea_level }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -2,3 +2,18 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.toast-success {
+    color: white;
+    --mdc-snackbar-container-color: green !important;
+}
+
+.toast-warning {
+    color: white;
+    --mdc-snackbar-container-color: orange !important;
+}
+
+.toast-error {
+    color: white;
+    --mdc-snackbar-container-color: red !important;
+}

@@ -1,15 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CitySearchComponent } from './city-search/city-search.component';
 import { StrengthSliderComponent } from './strength-slider/strength-slider.component';
 import { InternalizationPipe } from '../../shared/pipes/i18n.pipe';
+import { CityPreviewComponent } from './city-preview/city-preview.component';
+import { MatButtonModule } from '@angular/material/button';
+import { CityPreviewService } from '../../shared/models/city-preview.service';
 
 @Component({
     selector: 'app-input-data',
     standalone: true,
     templateUrl: './input-data.component.html',
     styleUrl: './input-data.component.scss',
-    imports: [CitySearchComponent, StrengthSliderComponent, InternalizationPipe]
+    imports: [
+        CitySearchComponent, 
+        StrengthSliderComponent, 
+        CityPreviewComponent, 
+        InternalizationPipe,
+        MatButtonModule
+    ]
 })
-export class InputDataComponent {
+export class InputDataComponent implements OnInit{
+
+    isDisabled: boolean = true;
+
+    constructor(
+        private cityPreviewService: CityPreviewService
+    ){}
+
+    ngOnInit(): void {
+        this.cityPreviewService.haveNewData.subscribe(() => {
+            this.isDisabled = !(this.cityPreviewService.checkHavePreviewData())
+        })
+    }
+
+    resetForm() {
+        this.cityPreviewService.removePreviewData();
+    }
 
 }

@@ -1,5 +1,14 @@
 {
     "form.title": "Input form",
     "form.city.search": "Insert city's name",
-    "form.network.strength": "Network Strength"
+    "form.network.strength": "Network Strength",
+    "form.no.input.detected": "Insert a city name",
+    "form.input.error": "Error fetching data",
+    "form.submit": "Save",
+    "form.cancel": "Cancel",
+    "data.preview.weather": "Weather",
+    "data.preview.humidity": "Humidity",
+    "data.preview.temperature": "Temperature",
+    "data.preview.pressure": "Pressure",
+    "data.preview.sea_level": "Sea level"
 }

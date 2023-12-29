@@ -5,9 +5,13 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { Observable, map, startWith } from 'rxjs';
-import { City } from '../../../shared/models/city';
 import { OpenWeather } from '../../../shared/services/open-weather.service';
 import { InternalizationPipe } from '../../../shared/pipes/i18n.pipe';
+import { City, CityData } from './model/city.interface';
+import { checkLanguage } from '../../../shared/helpers/language';
+import { CityPreviewData } from '../model/city-preview-data';
+import { CityPreviewService } from '../../../shared/models/city-preview.service';
+import { ToastService } from '../../../shared/services/toast.service';
 
 
 @Component({
@@ -33,7 +37,9 @@ export class CitySearchComponent implements OnInit{
   searchTimeout: ReturnType<typeof setTimeout> = setTimeout(() => '', 500);
 
   constructor(
-    private openWeather: OpenWeather
+    private openWeather: OpenWeather,
+    private cityPreviewService: CityPreviewService,
+    private toastService: ToastService
   ){}
 
   private _filter(name: string): City[] {
@@ -42,34 +48,60 @@ export class CitySearchComponent implements OnInit{
     return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
-  private searchCallBack = (insertedValue: string) => {
-    this.openWeather.getCityList(
-      insertedValue,
-      (cities: City[])=>{
-        this.options = [];
-        cities.forEach((city: City) => {
-          let shouldPush = !this.options.some(
-            obj => obj.name === city.name && 
-            obj.country === city.country && 
-            obj.state === city.state
-          );
-          
-          if(shouldPush){
-            this.options.push(city);
-            this.filteredOptions = this.myControl.valueChanges.pipe(
-              startWith(''),
-              map(value => {
-                const name = typeof value === 'string' ? value : value?.name;
-                return name ? this._filter(name as string) : this.options.slice();
-              }),
-            );
-          }
-        });
-      });
+  private processLocalName(city: City): City {
+    const language: string = checkLanguage(navigator.language);
+
+    if(city.local_names) {
+      const localeName: string = city.local_names[language];
+      city.name = localeName;
+    }
+
+    return city;
   }
 
-  private processCityData = (data: any) => {
-    console.log(data);
+  private searchCallBack = (insertedValue: string) => {
+    if(!insertedValue || insertedValue.length == 0) {
+      this.toastService.showToast("form.no.input.detected", "warning");
+    } else {
+      this.openWeather.getCityList(
+        insertedValue,
+        (cities: City[])=>{
+          this.options = [];
+          cities.forEach((city: City) => {
+            let shouldPush = !this.options.some(
+              obj => obj.name === city.name && 
+              obj.country === city.country && 
+              obj.state === city.state
+            );
+            
+            if(shouldPush){
+              city = this.processLocalName(city);
+
+              this.options.push(city);
+              this.filteredOptions = this.myControl.valueChanges.pipe(
+                startWith(''),
+                map(value => {
+                  const name = typeof value === 'string' ? value : value?.name;
+                  return name ? this._filter(name as string) : this.options.slice();
+                }),
+              );
+            }
+          });
+        });
+    }
+  }
+
+  private processCityData = (data: CityData) => {
+    const cityPreview = new CityPreviewData(
+      data.main.temp,
+      data.weather[0].main,
+      data.weather[0].id,
+      data.main.humidity,
+      data.main.pressure,
+      data.main.sea_level
+    );
+
+    this.cityPreviewService.addCityPreview(cityPreview);
   }
 
   ngOnInit(): void {
@@ -81,8 +113,7 @@ export class CitySearchComponent implements OnInit{
   }
 
   displayFn(city: City): string {
-    return city && city.name ? city.name : '';
-  }
+    return city && city.name ? city.name : '';}
 
   //It trigger the function after 1s of no interation
   delayedSearch = (event: Event) => {
