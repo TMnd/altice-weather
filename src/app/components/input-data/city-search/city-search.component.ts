@@ -93,9 +93,9 @@ export class CitySearchComponent implements OnInit{
 
   private processCityData = (data: CityData) => {
     const cityPreview = new CityPreviewData(
+      data.name,
       data.main.temp,
       data.weather[0].main,
-      data.weather[0].id,
       data.main.humidity,
       data.main.pressure,
       data.main.sea_level

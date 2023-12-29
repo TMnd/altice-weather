@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CitySearchComponent } from './city-search/city-search.component';
-import { StrengthSliderComponent } from './strength-slider/strength-slider.component';
 import { InternalizationPipe } from '../../shared/pipes/i18n.pipe';
 import { CityPreviewComponent } from './city-preview/city-preview.component';
 import { MatButtonModule } from '@angular/material/button';
 import { CityPreviewService } from '../../shared/models/city-preview.service';
+import { StrengthSliderComponent } from './strength-slider/strength-slider.component';
 
 @Component({
     selector: 'app-input-data',
@@ -33,8 +33,13 @@ export class InputDataComponent implements OnInit{
         })
     }
 
-    resetForm() {
+    resetForm(): void {
         this.cityPreviewService.removePreviewData();
+    }
+
+    submitForm(): void {
+        console.log(this.cityPreviewService.getCityPreview());
+        
     }
 
 }

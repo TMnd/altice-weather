@@ -9,6 +9,6 @@
    </div>
    <div class="action-area">
       <button mat-stroked-button (click)="resetForm()">{{ 'form.cancel' | translate }}</button>
-      <button mat-flat-button color="primary" [disabled]="isDisabled">{{ 'form.submit' | translate }}</button>
+      <button mat-flat-button color="primary" [disabled]="isDisabled" (click)="submitForm()">{{ 'form.submit' | translate }}</button>
    </div>
 </div>
