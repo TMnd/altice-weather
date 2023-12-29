@@ -1,4 +1,9 @@
 <div>
+  <mat-form-field>
+    <mat-label>{{ 'data.table.search' | translate }}</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+  </mat-form-field>
+
   <table 
     mat-table 
     [dataSource]="dataSource"
@@ -12,33 +17,49 @@
         </td>
     </tr>
 
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="city">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by city">{{ 'data.table.label.city' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.city' | translate }}</th>
       <td mat-cell *matCellDef="let element"> {{ element.city }} </td>
     </ng-container>
 
     <ng-container matColumnDef="weather">
-      <th mat-header-cell *matHeaderCellDef>{{ 'data.table.label.weather' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.weather' | translate }}</th>
       <td mat-cell *matCellDef="let element"> <i class="wi {{ element.weather }} custom-size"></i> </td>
     </ng-container>
 
     <ng-container matColumnDef="temp">
-      <th mat-header-cell *matHeaderCellDef>{{ 'data.table.label.temp' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.temp' | translate }}</th>
       <td mat-cell *matCellDef="let element"> {{ element.temp }} </td>
     </ng-container>
     
     <ng-container matColumnDef="humidity">
-      <th mat-header-cell *matHeaderCellDef>{{ 'data.table.label.humidity' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.humidity' | translate }}</th>
       <td mat-cell *matCellDef="let element"> {{ element.humidity }} </td>
     </ng-container>
 
     <ng-container matColumnDef="pressure">
-      <th mat-header-cell *matHeaderCellDef>{{ 'data.table.label.pressure' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.pressure' | translate }}</th>
       <td mat-cell *matCellDef="let element"> {{ element.pressure }} </td>
     </ng-container>
 
     <ng-container matColumnDef="sea_level">
-      <th mat-header-cell *matHeaderCellDef>{{ 'data.table.label.sea_level' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.sea_level' | translate }}</th>
       <td mat-cell *matCellDef="let element"> {{ element.sea_level }} </td>
     </ng-container>
 
@@ -48,15 +69,22 @@
     </ng-container>
 
     <ng-container matColumnDef="network_strength">
-      <th mat-header-cell *matHeaderCellDef>{{ 'data.table.label.network_strength' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.network_strength' | translate }}</th>
       <td mat-cell *matCellDef="let element"> 
         <span [ngClass]="element.network_strength > 2 ? 'green' : 'red'">
           <b>{{ element.network_strength }}</b>
         </span> 
       </td>
     </ng-container>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 20, 30, 100]"></mat-paginator>
 </div>

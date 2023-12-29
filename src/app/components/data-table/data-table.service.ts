@@ -20,4 +20,9 @@ export class DataTableService {
         this.rows.data = refData;
         this.haveNewData.next("");
     }
+
+    loadRows(savedRows: DataTableRow[]): void {
+        this.rows.data = savedRows;
+        this.haveNewData.next("");
+    }
 }

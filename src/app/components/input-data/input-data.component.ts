@@ -60,7 +60,6 @@ export class InputDataComponent implements OnInit{
     
         if(previewData) {
             let newRow: DataTableRow = {
-                _id: "",
                 city: previewData.city,
                 weather: getEnumKeyByValue(WeatherTypes, previewData.weather),
                 temp: `${previewData.temperature} ºC`,

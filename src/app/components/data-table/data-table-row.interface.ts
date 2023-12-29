@@ -1,5 +1,5 @@
 export interface DataTableRow {
-    _id: string,
+    _id?: string,
     city: string;
     weather: string;
     temp: string;

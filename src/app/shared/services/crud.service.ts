@@ -13,8 +13,7 @@ export class CrudService {
     apiKey: String = environment.crudcrudApiKey;
 
     constructor(
-        private http: HttpClient,
-        private toastService: ToastService
+        private http: HttpClient
     ){}
 
     httpOptions = {
@@ -25,5 +24,9 @@ export class CrudService {
 
     addCity(city: DataTableRow): Observable<DataTableRow>  {
         return this.http.post<DataTableRow>(`${this.url}${this.apiKey}/city`, JSON.stringify(city), this.httpOptions);
+    }
+
+    getCities(): Observable<DataTableRow[]> {
+        return this.http.get<DataTableRow[]>(`${this.url}${this.apiKey}/city`);
     }
 }

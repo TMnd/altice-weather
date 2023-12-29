@@ -12,6 +12,7 @@
     "data.preview.pressure": "Pressão",
     "data.preview.sea_level": "Nível do mar",
     "data.table.no.data": "Dados não encontrados",
+    "data.table.search": "Pesquisar...",
     "data.table.label.city": "Cidade",
     "data.table.label.weather": "Clima",
     "data.table.label.humidity": "Humidade",
@@ -20,5 +21,13 @@
     "data.table.label.sea_level": "Nível do mar",
     "data.table.label.insert_date": "Data",
     "data.table.label.network_strength": "Força da rede",
+    "data.table.label.first.page": "Primeira pagina",
+    "data.table.label.items.page": "Cidades por pagina:",
+    "data.table.label.last.page": "Ultima pagina",
+    "data.table.label.next.page": "Proxima pagina",
+    "data.table.label.previous.page": "Pagina anterior",
+    "data.table.label.init.page": "Pagina 1 de 1",
+    "common.page": "Pagina ",
+    "common.of": " de ",
     "footer.about": "sobre"
 }
