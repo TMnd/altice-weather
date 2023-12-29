@@ -10,6 +10,8 @@ import { DataTableRow } from '../data-table/data-table-row.interface';
 import { getEnumKeyByValue } from '../../shared/helpers/enum-manager';
 import { WeatherTypes } from '../../shared/enum/weather.enum';
 import { CityPreviewData } from './city-preview/city-preview-data';
+import { CrudService } from '../../shared/services/crud.service';
+import { ToastService } from '../../shared/services/toast.service';
 // import * as moment from 'moment';
 
 @Component({
@@ -33,7 +35,9 @@ export class InputDataComponent implements OnInit{
 
     constructor(
         private cityPreviewService: CityPreviewService,
-        private dataTableService: DataTableService
+        private dataTableService: DataTableService,
+        private crudService: CrudService,
+        private toastService: ToastService
     ){}
 
     ngOnInit(): void {
@@ -56,6 +60,7 @@ export class InputDataComponent implements OnInit{
     
         if(previewData) {
             let newRow: DataTableRow = {
+                _id: "",
                 city: previewData.city,
                 weather: getEnumKeyByValue(WeatherTypes, previewData.weather),
                 temp: `${previewData.temperature} ºC`,
@@ -65,8 +70,12 @@ export class InputDataComponent implements OnInit{
                 insert_date: currentUTCDate.toISOString(),
                 network_strength: this.networkStrength
             };
-
-            this.dataTableService.addRow(newRow);
+            
+            this.crudService.addCity(newRow).subscribe({
+                next: (value) => this.dataTableService.addRow(value),
+                error: (e) => this.toastService.showToast("form.input.error", "error"),
+                complete: () => console.info('Get city list request...') 
+            })
         }
     }
 

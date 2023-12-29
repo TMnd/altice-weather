@@ -67,9 +67,8 @@ export class CitySearchComponent implements OnInit{
     if(!insertedValue || insertedValue.length == 0) {
       this.toastService.showToast("form.no.input.detected", "warning");
     } else {
-      this.openWeather.getCityList(
-        insertedValue,
-        (cities: City[])=>{
+      this.openWeather.getCityList(insertedValue).subscribe({
+        next: (cities: City[]) => {
           this.options = [];
           cities.forEach((city: City) => {
             let shouldPush = !this.options.some(
@@ -92,28 +91,33 @@ export class CitySearchComponent implements OnInit{
               );
             }
           });
-        });
+        },
+        error: (e) => this.toastService.showToast("form.input.error", "error"),
+        complete: () => console.info('Get city list request...') 
+    });; 
     }
-  }
-
-  private processCityData = (data: CityData) => {
-    
-    const cityPreview = new CityPreviewData(
-      this.selectedCity,
-      data.main.temp,
-      data.weather[0].main,
-      data.main.humidity,
-      data.main.pressure,
-      (data.main.sea_level) ? data.main.sea_level : ""
-    );
-
-    this.cityPreviewService.addCityPreview(cityPreview);
   }
 
   ngOnInit(): void {
     this.myControl.valueChanges.subscribe((newValue) => {
       if (newValue instanceof Object) {
-        this.openWeather.getCityData(newValue.lat, newValue.lon, this.processCityData);
+        this.openWeather.getCityData(newValue.lat, newValue.lon).subscribe({
+          next: (data: CityData) => {
+    
+            const cityPreview = new CityPreviewData(
+              this.selectedCity,
+              data.main.temp,
+              data.weather[0].main,
+              data.main.humidity,
+              data.main.pressure,
+              (data.main.sea_level) ? data.main.sea_level : ""
+            );
+        
+            this.cityPreviewService.addCityPreview(cityPreview);
+          },
+          error: (e) => this.toastService.showToast("form.input.error", "error"),
+          complete: () => console.info('Get city data request...') 
+      });;
       }
     });
   }
