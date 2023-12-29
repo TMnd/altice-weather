@@ -1,5 +1,11 @@
 <div>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table 
+    mat-table 
+    [dataSource]="dataSource"
+    matSort 
+    (matSortChange)="announceSortChange($event)"
+    class="mat-elevation-z8"
+  >
     <tr class="mat-row" *matNoDataRow>
         <td class="mat-cell empty-data" [attr.colspan]="displayedColumns.length">
           {{ 'data.table.no.data' | translate }}
@@ -7,33 +13,47 @@
     </tr>
 
     <ng-container matColumnDef="city">
-      <th mat-header-cell *matHeaderCellDef>{{ 'data.table.label.city' | translate }}</th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by city">{{ 'data.table.label.city' | translate }}</th>
+      <td mat-cell *matCellDef="let element"> {{ element.city }} </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="weather">
-      <th mat-header-cell *matHeaderCellDef>{{ 'data.table.label.weather' | translate }}</th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="weather">{{ 'data.table.label.weather' | translate }}</th>
+      <td mat-cell *matCellDef="let element"> <i class="wi {{ element.weather }} custom-size"></i> </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="temp">
-      <th mat-header-cell *matHeaderCellDef>{{ 'data.table.label.temp' | translate }}</th>
-      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="temp">{{ 'data.table.label.temp' | translate }}</th>
+      <td mat-cell *matCellDef="let element"> {{ element.temp }} </td>
     </ng-container>
     
     <ng-container matColumnDef="humidity">
-      <th mat-header-cell *matHeaderCellDef>{{ 'data.table.label.humidity' | translate }}</th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="humidity">{{ 'data.table.label.humidity' | translate }}</th>
+      <td mat-cell *matCellDef="let element"> {{ element.humidity }} </td>
     </ng-container>
 
     <ng-container matColumnDef="pressure">
-      <th mat-header-cell *matHeaderCellDef>{{ 'data.table.label.pressure' | translate }}</th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="pressure">{{ 'data.table.label.pressure' | translate }}</th>
+      <td mat-cell *matCellDef="let element"> {{ element.pressure }} </td>
     </ng-container>
 
     <ng-container matColumnDef="sea_level">
-      <th mat-header-cell *matHeaderCellDef>{{ 'data.table.label.sea_level' | translate }}</th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="sea_level">{{ 'data.table.label.sea_level' | translate }}</th>
+      <td mat-cell *matCellDef="let element"> {{ element.sea_level }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="insert_date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="insert_date">{{ 'data.table.label.insert_date' | translate }}</th>
+      <td mat-cell *matCellDef="let element"> {{ element.insert_date }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="network_strength">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="network_strength">{{ 'data.table.label.network_strength' | translate }}</th>
+      <td mat-cell *matCellDef="let element"> 
+        <span [ngClass]="element.network_strength > 2 ? 'green' : 'red'">
+          <b>{{ element.network_strength }}</b>
+        </span> 
+      </td>
     </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

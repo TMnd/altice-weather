@@ -25,7 +25,7 @@ export interface TemperatureData {
     grnd_level: number,
     humidity: number,
     pressure: number,
-    sea_level: number,
+    sea_level: string,
     temp: number,
     temp_max: number,
     temp_min: number

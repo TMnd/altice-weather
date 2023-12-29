@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CityPreviewService } from '../../../shared/models/city-preview.service';
-import { CityPreviewData } from '../model/city-preview-data';
+import { CityPreviewService } from './city-preview.service';
+import { CityPreviewData } from './city-preview-data';
 import { CommonModule } from '@angular/common';
 import { InternalizationPipe } from "../../../shared/pipes/i18n.pipe";
 import { WeatherTypes } from '../../../shared/enum/weather.enum';

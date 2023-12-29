@@ -9,9 +9,9 @@ import { OpenWeather } from '../../../shared/services/open-weather.service';
 import { InternalizationPipe } from '../../../shared/pipes/i18n.pipe';
 import { City, CityData } from './model/city.interface';
 import { checkLanguage } from '../../../shared/helpers/language';
-import { CityPreviewData } from '../model/city-preview-data';
-import { CityPreviewService } from '../../../shared/models/city-preview.service';
+import { CityPreviewService } from '../city-preview/city-preview.service';
 import { ToastService } from '../../../shared/services/toast.service';
+import { CityPreviewData } from '../city-preview/city-preview-data';
 
 
 @Component({
@@ -35,6 +35,8 @@ export class CitySearchComponent implements OnInit{
   options: City[] = [];
   filteredOptions: Observable<City[]> | undefined;
   searchTimeout: ReturnType<typeof setTimeout> = setTimeout(() => '', 500);
+  selectedCity: string = "";
+
 
   constructor(
     private openWeather: OpenWeather,
@@ -78,6 +80,7 @@ export class CitySearchComponent implements OnInit{
             
             if(shouldPush){
               city = this.processLocalName(city);
+              this.selectedCity = city.name;
 
               this.options.push(city);
               this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -94,13 +97,14 @@ export class CitySearchComponent implements OnInit{
   }
 
   private processCityData = (data: CityData) => {
+    
     const cityPreview = new CityPreviewData(
-      data.name,
+      this.selectedCity,
       data.main.temp,
       data.weather[0].main,
       data.main.humidity,
       data.main.pressure,
-      data.main.sea_level
+      (data.main.sea_level) ? data.main.sea_level : ""
     );
 
     this.cityPreviewService.addCityPreview(cityPreview);
@@ -115,7 +119,8 @@ export class CitySearchComponent implements OnInit{
   }
 
   displayFn(city: City): string {
-    return city && city.name ? city.name : '';}
+    return city && city.name ? city.name : '';
+  }
 
   //It trigger the function after 1s of no interation
   delayedSearch = (event: Event) => {

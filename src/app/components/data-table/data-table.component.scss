@@ -1,8 +1,24 @@
 table {
     width: 100%;
 
-    .empty-data{
+    th, td {
+        text-align: center !important;
+    }
+
+    .empty-data {
         text-align: center;
+    }
+
+    .custom-size {
+        font-size: 30px;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .green {
+        color: green;
     }
 }
 

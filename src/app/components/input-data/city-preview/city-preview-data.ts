@@ -4,9 +4,9 @@ export class CityPreviewData {
     weather: string;
     humidity: number;
     pressure: number;
-    sea_level: number;
+    sea_level: string;
 
-    constructor(city: string, temperature: number, weather: string, humidity: number, pressure: number, sea_level: number) {
+    constructor(city: string, temperature: number, weather: string, humidity: number, pressure: number, sea_level: string) {
         this.city = city;
         this.temperature = temperature;
         this.weather = weather;

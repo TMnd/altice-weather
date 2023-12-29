@@ -18,5 +18,7 @@
     "data.table.label.temp": "Temperatura",
     "data.table.label.pressure": "Pressão",
     "data.table.label.sea_level": "Nível do mar",
+    "data.table.label.insert_date": "Data",
+    "data.table.label.network_strength": "Força da rede",
     "footer.about": "sobre"
 }

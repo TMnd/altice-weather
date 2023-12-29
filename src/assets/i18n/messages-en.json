@@ -18,5 +18,7 @@
     "data.table.label.temp": "Temperature",
     "data.table.label.pressure": "Pressure",
     "data.table.label.sea_level": "Sea level",
+    "data.table.label.insert_date": "Date",
+    "data.table.label.network_strength": "Network strength",
     "footer.about": "about"
 }

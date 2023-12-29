@@ -10,10 +10,10 @@ import { InternalizationPipe } from '../../../shared/pipes/i18n.pipe';
   styleUrl: './strength-slider.component.scss'
 })
 export class StrengthSliderComponent {
-  @Output() networkStrength = new EventEmitter<string>();
+  @Output() networkStrength = new EventEmitter<number>();
 
   changeValue(event: Event) {
-    const valueSelected = (event.target as HTMLInputElement).value;
-    this.networkStrength.emit(valueSelected);
+    const valueSelected: string = (event.target as HTMLInputElement).value;
+    this.networkStrength.emit(parseInt(valueSelected));
   }
 }

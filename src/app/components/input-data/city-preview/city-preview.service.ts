@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
-import { CityPreviewData } from "../../components/input-data/model/city-preview-data";
+import { CityPreviewData } from "./city-preview-data.js";
 
 @Injectable({
     providedIn: 'root',
