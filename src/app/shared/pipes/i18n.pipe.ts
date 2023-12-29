@@ -12,7 +12,7 @@ export class InternalizationPipe implements PipeTransform {
     ) {}
 
     transform(value: string): string {
-        const translatedValue = this.i18nService.getValue(value);
+        const translatedValue = this.i18nService.translate(value);
         return translatedValue;
     }
 }

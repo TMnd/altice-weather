@@ -10,5 +10,13 @@
     "data.preview.humidity": "Humidity",
     "data.preview.temperature": "Temperature",
     "data.preview.pressure": "Pressure",
-    "data.preview.sea_level": "Sea level"
+    "data.preview.sea_level": "Sea level",
+    "data.table.no.data": "No data found",
+    "data.table.label.city": "City",
+    "data.table.label.weather": "Weather",
+    "data.table.label.humidity": "Humidity",
+    "data.table.label.temp": "Temperature",
+    "data.table.label.pressure": "Pressure",
+    "data.table.label.sea_level": "Sea level",
+    "footer.about": "about"
 }

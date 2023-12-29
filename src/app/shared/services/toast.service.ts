@@ -20,7 +20,7 @@ export class ToastService {
     }
 
     showToast(label: string, criticity: string) {
-        const translatedLabel = this.i18nService.getValue(label);
+        const translatedLabel = this.i18nService.translate(label);
         const toastCriticity = this.criticity(criticity);
         this._snackBar.open(translatedLabel, "", {
             horizontalPosition: this.horizontalPosition,

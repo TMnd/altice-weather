@@ -26,7 +26,7 @@ export class I18nService {
         this.i18n.set(key, value);
     }
 
-    getValue(value: string): string {
+    translate(value: string): string {
         return this.i18n.get(value) || value;
     }
 
