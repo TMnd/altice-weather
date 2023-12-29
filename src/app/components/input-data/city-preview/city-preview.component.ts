@@ -3,6 +3,8 @@ import { CityPreviewService } from '../../../shared/models/city-preview.service'
 import { CityPreviewData } from '../model/city-preview-data';
 import { CommonModule } from '@angular/common';
 import { InternalizationPipe } from "../../../shared/pipes/i18n.pipe";
+import { WeatherTypes } from '../../../shared/enum/weather.enum';
+import { getEnumKeyByValue } from '../../../shared/helpers/enum-manager';
 
 @Component({
     selector: 'app-city-preview',
@@ -14,6 +16,7 @@ import { InternalizationPipe } from "../../../shared/pipes/i18n.pipe";
 export class CityPreviewComponent implements OnInit {
 
   previewData?: CityPreviewData = undefined;
+  weatherIcon: string = "";
 
   private KELVIN_FACTOR: number = 273.15;
 
@@ -31,6 +34,9 @@ export class CityPreviewComponent implements OnInit {
       this.previewData = this.cityPreviewService.getCityPreview();
       if(this.previewData) {
         this.previewData.temperature = this.convertTempToCelcius(this.previewData);
+        
+        const weather = this.previewData.weather;
+        this.weatherIcon = getEnumKeyByValue(WeatherTypes, weather);
       }
     })
   }

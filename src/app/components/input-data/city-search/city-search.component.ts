@@ -53,7 +53,9 @@ export class CitySearchComponent implements OnInit{
 
     if(city.local_names) {
       const localeName: string = city.local_names[language];
-      city.name = localeName;
+      if(localeName) {
+        city.name = localeName;
+      }
     }
 
     return city;

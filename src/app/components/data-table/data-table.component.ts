@@ -4,10 +4,13 @@ import { InternalizationPipe } from "../../shared/pipes/i18n.pipe";
 import { I18nService } from '../../shared/services/i18n.service';
 
 export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
+  city: string;
+  weather: string;
+  temp: string;
   symbol: string;
+  humidity: string;
+  pressure: string;
+  sea_level: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [

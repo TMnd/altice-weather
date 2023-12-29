@@ -23,6 +23,8 @@ export class InputDataComponent implements OnInit{
 
     isDisabled: boolean = true;
 
+    networkStrength: string = "";
+
     constructor(
         private cityPreviewService: CityPreviewService
     ){}
@@ -37,9 +39,13 @@ export class InputDataComponent implements OnInit{
         this.cityPreviewService.removePreviewData();
     }
 
+    addItem(networkStrength: string) {
+        this.networkStrength = networkStrength;
+    }
+
     submitForm(): void {
         console.log(this.cityPreviewService.getCityPreview());
-        
+        console.log(this.networkStrength);
     }
 
 }

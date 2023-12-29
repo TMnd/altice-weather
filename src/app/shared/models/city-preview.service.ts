@@ -9,6 +9,7 @@ export class CityPreviewService {
     haveNewData = new Subject<String>();
 
     cityPreview?: CityPreviewData = undefined;
+    
 
     addCityPreview(data: CityPreviewData): void {
         this.cityPreview = data;

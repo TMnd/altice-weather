@@ -2,7 +2,9 @@
    <h2>{{ 'form.title' | translate }}</h2>
    <div class="form">
       <app-city-search></app-city-search>
-      <app-strength-slider></app-strength-slider>
+      <app-strength-slider 
+         (networkStrength)="addItem($event)"
+      ></app-strength-slider>
    </div>
    <div class="preview-area">
       <app-city-preview></app-city-preview>

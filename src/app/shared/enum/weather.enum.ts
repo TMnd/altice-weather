@@ -1,9 +1,8 @@
 export enum WeatherTypes {
-    Thunderstorm,
-    Drizzle,
-    Rain,
-    Snow,
-    Atmosphere,
-    Clear,
-    Clouds
+    Thunderstorm="wi-thunderstorm",
+    Drizzle="wi-sleet",
+    Rain="wi-rain",
+    Snow="wi-snow",
+    Clear="wi-day-sunny",
+    Clouds="wi-cloud"
 }
