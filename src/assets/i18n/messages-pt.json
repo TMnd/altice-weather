@@ -32,5 +32,6 @@
     "common.of": " de ",
     "footer.about": "sobre",
     "data.deletion.sucess": "Os dados foi apagada com sucesso",
-    "form.input.success": "Dado adicionado com sucesso"
+    "form.input.success": "Dado adicionado com sucesso",
+    "spinner.message": "A processar..."
 }

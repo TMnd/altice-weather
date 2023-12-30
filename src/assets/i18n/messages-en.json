@@ -32,5 +32,6 @@
     "common.of": " of ",
     "footer.about": "about",
     "data.deletion.sucess": "Data was deleted successfully",
-    "form.input.success": "Data was added successfully"
+    "form.input.success": "Data was added successfully",
+    "spinner.message": "Processing..."
 }

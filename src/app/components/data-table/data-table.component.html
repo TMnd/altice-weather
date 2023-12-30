@@ -95,8 +95,11 @@
 </div>
 
 <div *ngIf="isLoading" class="spinner-container">
-  <mat-progress-spinner
-    color="primary" 
-    mode="indeterminate">
-  </mat-progress-spinner>
+  <div class="inner">
+    <mat-progress-spinner
+      color="primary" 
+      mode="indeterminate">
+    </mat-progress-spinner>
+    <p>{{ 'spinner.message' | translate }}</p>
+  </div>
 </div>
