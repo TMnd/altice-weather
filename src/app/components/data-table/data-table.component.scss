@@ -1,36 +1,52 @@
-table {
-    width: 100%;
-    border-bottom: 1px solid lightgray;
-
-    th, td {
-        text-align: center !important;
-    }
-
-    .empty-data {
-        padding-top: 20px;
-        padding-bottom: 20px;
-        text-align: center;
-    }
-
-    .custom-size {
-        font-size: 30px;
-    }
-
-    .red {
-        color: red;
-    }
-
-    .green {
-        color: green;
-    }
-}
-
-div {
+.table-container {
     padding: 30px;
+
+    .table-options {
+        padding: inherit;
+    }
+
+    table {
+        width: 100%;
+        border-bottom: 1px solid lightgray;
+
+        th, td {
+            text-align: center !important;
+        }
+
+        .empty-data {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            text-align: center;
+        }
+
+        .custom-size {
+            font-size: 30px;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .green {
+            color: green;
+        }
+    }
 }
 
 .mat-mdc-form-field {
     font-size: 14px;
     width: 25%;
     float: right;
+}
+
+.spinner-container {
+    top: 0;
+    height: 100vh;
+    width: -webkit-fill-available;
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.30);
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }

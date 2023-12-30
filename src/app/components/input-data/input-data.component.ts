@@ -71,7 +71,10 @@ export class InputDataComponent implements OnInit{
             };
             
             this.crudService.addCity(newRow).subscribe({
-                next: (value) => this.dataTableService.addRow(value),
+                next: (value) => {
+                    this.dataTableService.addRow(value);
+                    this.toastService.showToast("form.input.success", "success");
+                },
                 error: (e) => this.toastService.showToast("form.input.error", "error"),
                 complete: () => console.info('Get city list request...') 
             })

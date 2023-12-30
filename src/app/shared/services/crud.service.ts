@@ -26,6 +26,10 @@ export class CrudService {
         return this.http.post<DataTableRow>(`${this.url}${this.apiKey}/city`, JSON.stringify(city), this.httpOptions);
     }
 
+    removeCity(id: string): Observable<DataTableRow> {
+        return this.http.delete<DataTableRow>(`${this.url}${this.apiKey}/city/${id}`);
+    }
+
     getCities(): Observable<DataTableRow[]> {
         return this.http.get<DataTableRow[]>(`${this.url}${this.apiKey}/city`);
     }

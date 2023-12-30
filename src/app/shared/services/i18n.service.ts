@@ -30,9 +30,4 @@ export class I18nService {
         return this.i18n.get(value) || value;
     }
 
-    toString(){
-        console.log(this.i18n);
-    }
-    
-
 }

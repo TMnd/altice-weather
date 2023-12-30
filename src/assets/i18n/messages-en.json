@@ -4,6 +4,7 @@
     "form.network.strength": "Network Strength",
     "form.no.input.detected": "Insert a city name",
     "form.input.error": "Error fetching data",
+    "form.input.sucess.city": "City added",
     "form.submit": "Save",
     "form.cancel": "Cancel",
     "data.preview.weather": "Weather",
@@ -29,5 +30,7 @@
     "data.table.label.init.page": "Page 1 of 1",
     "common.page": "Page ",
     "common.of": " of ",
-    "footer.about": "about"
+    "footer.about": "about",
+    "data.deletion.sucess": "Data was deleted successfully",
+    "form.input.success": "Data was added successfully"
 }

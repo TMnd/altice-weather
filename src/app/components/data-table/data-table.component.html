@@ -1,8 +1,13 @@
-<div>
-  <mat-form-field>
-    <mat-label>{{ 'data.table.search' | translate }}</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
-  </mat-form-field>
+<div class="table-container">
+  <div class="table-options">
+    <button mat-fab color="warn" (click)="deleteSelected()">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <mat-form-field>
+      <mat-label>{{ 'data.table.search' | translate }}</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+    </mat-form-field>
+  </div>
 
   <table 
     mat-table 
@@ -87,4 +92,11 @@
   </table>
 
   <mat-paginator [pageSizeOptions]="[10, 20, 30, 100]"></mat-paginator>
+</div>
+
+<div *ngIf="isLoading" class="spinner-container">
+  <mat-progress-spinner
+    color="primary" 
+    mode="indeterminate">
+  </mat-progress-spinner>
 </div>

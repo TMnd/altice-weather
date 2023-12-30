@@ -15,6 +15,9 @@ import { I18nService } from '../../shared/services/i18n.service';
 import { MyCustomPaginatorIntl } from './implementation/pagination-impl';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { SelectionModel } from '@angular/cdk/collections';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
     selector: 'app-data-table',
@@ -29,7 +32,10 @@ import { SelectionModel } from '@angular/cdk/collections';
       MatFormFieldModule,
       MatInputModule,
       MatPaginatorModule,
-      MatCheckboxModule
+      MatCheckboxModule,
+      MatIconModule,
+      MatButtonModule,
+      MatProgressSpinnerModule
     ],
     providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
 })
@@ -41,6 +47,8 @@ export class DataTableComponent implements OnInit  {
   sortedData?: DataTableRow[];
 
   paginatorLabel: string = this.i18nService.translate('data.table.label.pagination');
+
+  isLoading: boolean = true;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -55,18 +63,47 @@ export class DataTableComponent implements OnInit  {
     this.sortedData = this.dataSource.data.slice();
   }
 
+  private processDeletion(id: string): void {
+    for(let i=0; i<this.dataSource.data.length; i++) {
+      let city = this.dataSource.data[i];
+      if(city._id === id) {
+        this.dataSource.data.splice(i, 1);
+        this.dataSource._updateChangeSubscription();
+      }
+    }    
+  }
+
   ngOnInit(): void {
     this.dataTableService.haveNewData.subscribe(() => {
       console.log("Updating data table...");
       this.dataSource = this.dataTableService.getDataRows();
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      
+      //Santo prego nº2 ;)
+      this.isLoading=true;
+      //To simulate, 1s max
+      setTimeout(() => {
+        this.isLoading=false;
+      }, 1000)
     });
 
     this.crudService.getCities().subscribe({
       next: (value: DataTableRow[]) => this.dataTableService.loadRows(value),
-      error: (e) => this.toastService.showToast("form.input.error", "error"),
-      complete: () => console.info('Get city list request...')
+      error: (e) => {
+        this.toastService.showToast("form.input.error", "error");
+        //To simulate, 1s max
+        setTimeout(() => {
+          this.isLoading=false;
+        }, 1000)
+      },
+      complete: () => {
+        console.info('Get city list request...');
+        //To simulate, 1s max
+        setTimeout(() => {
+          this.isLoading=false;
+        }, 1000)
+      }
     })
   }
 
@@ -100,6 +137,33 @@ export class DataTableComponent implements OnInit  {
     }
 
     this.selection.select(...this.dataSource.data);
+  }
+
+  deleteSelected(): void {
+    const entitiesToDelete: DataTableRow[] = this.selection.selected;
+    this.isLoading=true;
+    entitiesToDelete.map(entity => {
+      const id: string | undefined = entity._id;
+      if(id) {
+        this.crudService.removeCity(id).subscribe({
+          next: (value) => {
+            this.processDeletion(id);
+            // Santo prego :)
+            setTimeout(() => {
+              this.toastService.showToast("data.deletion.sucess", "success");
+              this.isLoading=false;
+            }, 1000);
+          },
+          error: (e) => this.toastService.showToast("form.input.error", "error"),
+          complete: () => {
+            console.info('Delete city request...');
+            setTimeout(() => {
+              this.isLoading=false;
+            }, 1000);
+          }
+        });
+      }
+    });
   }
 
 }

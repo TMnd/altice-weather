@@ -4,6 +4,7 @@
     "form.network.strength": "Força da rede:",
     "form.no.input.detected": "Insira um nome de cidade",
     "form.input.error": "Erro ao adquirir dados",
+    "form.input.sucess.city": "Cidade adicionada",
     "form.submit": "Salvar",
     "form.cancel": "Cancel",
     "data.preview.weather": "Clima",
@@ -29,5 +30,7 @@
     "data.table.label.init.page": "Pagina 1 de 1",
     "common.page": "Pagina ",
     "common.of": " de ",
-    "footer.about": "sobre"
+    "footer.about": "sobre",
+    "data.deletion.sucess": "Os dados foi apagada com sucesso",
+    "form.input.success": "Dado adicionado com sucesso"
 }
