@@ -85,7 +85,7 @@ export class DataTableComponent implements OnInit  {
       //To simulate, 1s max
       setTimeout(() => {
         this.isLoading=false;
-      }, 1000)
+      }, 500)
     });
 
     this.crudService.getCities().subscribe({
@@ -95,14 +95,14 @@ export class DataTableComponent implements OnInit  {
         //To simulate, 1s max
         setTimeout(() => {
           this.isLoading=false;
-        }, 1000)
+        }, 500)
       },
       complete: () => {
         console.info('Get city list request...');
         //To simulate, 1s max
         setTimeout(() => {
           this.isLoading=false;
-        }, 1000)
+        }, 500)
       }
     })
   }
@@ -152,14 +152,14 @@ export class DataTableComponent implements OnInit  {
             setTimeout(() => {
               this.toastService.showToast("data.deletion.sucess", "success");
               this.isLoading=false;
-            }, 1000);
+            }, 500);
           },
           error: (e) => this.toastService.showToast("form.input.error", "error"),
           complete: () => {
             console.info('Delete city request...');
             setTimeout(() => {
               this.isLoading=false;
-            }, 1000);
+            }, 500);
           }
         });
       }

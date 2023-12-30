@@ -55,3 +55,9 @@
         flex-direction: column;
     }
 }
+
+@media (max-width: 1260px) {
+    .table-container {
+        margin-bottom: 30px;
+    }
+}
