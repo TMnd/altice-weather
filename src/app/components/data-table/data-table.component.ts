@@ -18,6 +18,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
     selector: 'app-data-table',
@@ -35,7 +36,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
       MatCheckboxModule,
       MatIconModule,
       MatButtonModule,
-      MatProgressSpinnerModule
+      MatProgressSpinnerModule,
+      ModalComponent
     ],
     providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
 })
@@ -43,7 +45,7 @@ export class DataTableComponent implements OnInit  {
   displayedColumns: string[] = ['select', 'city', 'weather', 'temp', 'humidity', 'pressure', 'sea_level', 'insert_date', 'network_strength'];
   dataSource = new MatTableDataSource<DataTableRow>();
   selection = new SelectionModel<DataTableRow>(true, []);
-
+  deleteCitiesbuttonDisable: boolean = true;
   sortedData?: DataTableRow[];
 
   paginatorLabel: string = this.i18nService.translate('data.table.label.pagination');
@@ -74,6 +76,15 @@ export class DataTableComponent implements OnInit  {
   }
 
   ngOnInit(): void {
+
+    this.selection.changed.asObservable().subscribe(() => {
+      if(this.selection.hasValue()) {
+        this.deleteCitiesbuttonDisable = false;
+      } else {
+        this.deleteCitiesbuttonDisable = true;
+      }
+    });
+
     this.dataTableService.haveNewData.subscribe(() => {
       console.log("Updating data table...");
       this.dataSource = this.dataTableService.getDataRows();
@@ -104,7 +115,8 @@ export class DataTableComponent implements OnInit  {
           this.isLoading=false;
         }, 500)
       }
-    })
+    });
+
   }
 
   announceSortChange(sortState: Sort) {
@@ -138,6 +150,7 @@ export class DataTableComponent implements OnInit  {
 
     this.selection.select(...this.dataSource.data);
   }
+
 
   deleteSelected(): void {
     const entitiesToDelete: DataTableRow[] = this.selection.selected;

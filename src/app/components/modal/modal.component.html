@@ -1,0 +1,27 @@
+<ng-container *ngIf="showModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>
+                {{ title | translate }}
+                <span 
+                    class="close"
+                    (click)="toggle()"
+                >&times;</span>
+            </h2>
+        </div>
+        <div class="modal-body">
+            <span [ngSwitch]="context">
+                <p *ngSwitchCase="'confirmAndExecution'">
+                    {{ body | translate }}
+                </p>
+                <ng-content *ngSwitchDefault></ng-content>
+            </span>
+        </div>
+        <hr>
+        <div class="modal-actions">
+            <button mat-stroked-button (click)="toggle()">{{ 'form.cancel' | translate }}</button>
+            <button mat-flat-button color="primary" (click)="callbackFunction()">{{ 'form.submit' | translate }}</button>       
+        </div>
+    </div>
+    <div (click)="toggle()" class="overlay"></div>
+</ng-container>

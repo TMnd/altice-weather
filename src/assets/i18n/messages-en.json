@@ -33,5 +33,7 @@
     "footer.about": "about",
     "data.deletion.sucess": "Data was deleted successfully",
     "form.input.success": "Data was added successfully",
-    "spinner.message": "Processing..."
+    "spinner.message": "Processing...",
+    "modal.title.confirm.execution": "Confirm and execute",
+    "modal.body": "Are you sure you want delete this cities records?"
 }

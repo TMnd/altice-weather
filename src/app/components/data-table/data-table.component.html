@@ -1,6 +1,6 @@
 <div class="table-container">
   <div class="table-options">
-    <button mat-fab color="warn" (click)="deleteSelected()">
+    <button mat-fab color="warn" [disabled]="deleteCitiesbuttonDisable" (click)="modal.toggle()">
       <mat-icon>delete</mat-icon>
     </button>
     <mat-form-field>
@@ -103,3 +103,12 @@
     <p>{{ 'spinner.message' | translate }}</p>
   </div>
 </div>
+
+<app-modal 
+  #modal
+  [title]="'modal.title.confirm.execution'"
+  [context]="'confirmAndExecution'"
+  [body]="'modal.body'"
+  [callbackFunction]="deleteSelected()"
+>
+</app-modal> 

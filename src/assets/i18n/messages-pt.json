@@ -5,8 +5,8 @@
     "form.no.input.detected": "Insira um nome de cidade",
     "form.input.error": "Erro ao adquirir dados",
     "form.input.sucess.city": "Cidade adicionada",
-    "form.submit": "Salvar",
-    "form.cancel": "Cancel",
+    "form.submit": "Submeter",
+    "form.cancel": "Fechar",
     "data.preview.weather": "Clima",
     "data.preview.humidity": "Humidade",
     "data.preview.temperature": "Temperatura",
@@ -33,5 +33,7 @@
     "footer.about": "sobre",
     "data.deletion.sucess": "Os dados foi apagada com sucesso",
     "form.input.success": "Dado adicionado com sucesso",
-    "spinner.message": "A processar..."
+    "spinner.message": "A processar...",
+    "modal.title.confirm.execution": "Confirmação e execução",
+    "modal.body": "Quer apagar as cidades selecionadas?"
 }
