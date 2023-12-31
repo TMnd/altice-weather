@@ -9,10 +9,6 @@
         width: 100%;
         border-bottom: 1px solid lightgray;
 
-        th, td {
-            text-align: center !important;
-        }
-
         .empty-data {
             padding-top: 20px;
             padding-bottom: 20px;
@@ -60,5 +56,9 @@
 @media (max-width: 1260px) {
     .table-container {
         margin-bottom: 30px;
+    }
+
+    .spinner-container {
+        height: 100%;
     }
 }

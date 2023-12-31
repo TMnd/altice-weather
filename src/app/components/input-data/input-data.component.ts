@@ -12,7 +12,6 @@ import { WeatherTypes } from '../../shared/enum/weather.enum';
 import { CityPreviewData } from './city-preview/city-preview-data';
 import { CrudService } from '../../shared/services/crud.service';
 import { ToastService } from '../../shared/services/toast.service';
-// import * as moment from 'moment';
 
 @Component({
     selector: 'app-input-data',

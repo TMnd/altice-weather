@@ -19,6 +19,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ModalComponent } from '../modal/modal.component';
+import { MomentPipe } from '../../shared/pipes/moment.pipe';
 
 @Component({
     selector: 'app-data-table',
@@ -37,7 +38,8 @@ import { ModalComponent } from '../modal/modal.component';
       MatIconModule,
       MatButtonModule,
       MatProgressSpinnerModule,
-      ModalComponent
+      ModalComponent,
+      MomentPipe
     ],
     providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
 })

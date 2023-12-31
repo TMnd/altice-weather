@@ -39,7 +39,7 @@
     </ng-container>
 
     <ng-container matColumnDef="city">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.city' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-header">{{ 'data.table.label.city' | translate }}</th>
       <td mat-cell *matCellDef="let element"> {{ element.city }} </td>
     </ng-container>
 
@@ -70,7 +70,7 @@
 
     <ng-container matColumnDef="insert_date">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">{{ 'data.table.label.insert_date' | translate }}</th>
-      <td mat-cell *matCellDef="let element"> {{ element.insert_date }} </td>
+      <td mat-cell *matCellDef="let element"> {{ element.insert_date | localtz }} </td>
     </ng-container>
 
     <ng-container matColumnDef="network_strength">
