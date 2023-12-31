@@ -20,6 +20,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ModalComponent } from '../modal/modal.component';
 import { MomentPipe } from '../../shared/pipes/moment.pipe';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-data-table',
@@ -62,7 +63,8 @@ export class DataTableComponent implements OnInit  {
     private toastService: ToastService,
     private crudService: CrudService,
     private dataTableService: DataTableService,
-    private _liveAnnouncer: LiveAnnouncer
+    private _liveAnnouncer: LiveAnnouncer,
+    private router: Router
   ){
     this.sortedData = this.dataSource.data.slice();
   }
@@ -180,4 +182,12 @@ export class DataTableComponent implements OnInit  {
     });
   }
 
+  selectRow(): void {
+    this.router.navigate(['/', 'detail', 'aveiro'])
+    .then(nav => {
+      console.log(nav);
+    }, err => {
+      console.log(err)
+    });
+  }
 }

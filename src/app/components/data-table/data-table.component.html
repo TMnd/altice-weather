@@ -88,7 +88,10 @@
     </tr>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+        class="example-element-row"
+        (click)="selectRow()">
+    </tr>
   </table>
 
   <mat-paginator [pageSizeOptions]="[10, 20, 30, 100]"></mat-paginator>
