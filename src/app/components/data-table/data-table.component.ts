@@ -136,13 +136,13 @@ export class DataTableComponent implements OnInit  {
     }
   }
 
-  isAllSelected() {
+  isAllSelected(): boolean {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
-  toggleAllRows() {
+  toggleAllRows(): void {
     if (this.isAllSelected()) {
       this.selection.clear();
       return;
@@ -151,8 +151,7 @@ export class DataTableComponent implements OnInit  {
     this.selection.select(...this.dataSource.data);
   }
 
-
-  deleteSelected(): void {
+  deleteSelected = (): void => {
     const entitiesToDelete: DataTableRow[] = this.selection.selected;
     this.isLoading=true;
     entitiesToDelete.map(entity => {

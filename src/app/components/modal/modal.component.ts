@@ -3,7 +3,6 @@ import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { InternalizationPipe } from "../../shared/pipes/i18n.pipe";
 
-
 @Component({
     selector: 'app-modal',
     standalone: true,
@@ -19,11 +18,16 @@ export class ModalComponent {
   @Input() title: string = "";
   @Input() context: string = "";
   @Input() body: string = "";
-  @Input() submitClick: CallableFunction;
+  @Input() submitClick!: Function;
   
   showModal: boolean = false;
 
-  toggle() {
+  submitAction(): void {
+    this.submitClick();
+    this.toggle();
+  }
+
+  toggle(): void {
     this.showModal = !this.showModal;
   }
 }
