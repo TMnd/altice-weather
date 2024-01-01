@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { InternalizationPipe } from "../../shared/pipes/i18n.pipe";
 import { DataTableRow } from './data-table-row.interface';
 import { DataTableService } from './data-table.service';
-import { CommonModule, I18nSelectPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,7 +20,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ModalComponent } from '../modal/modal.component';
 import { MomentPipe } from '../../shared/pipes/moment.pipe';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-data-table',
@@ -45,6 +45,9 @@ import { Router } from '@angular/router';
     providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
 })
 export class DataTableComponent implements OnInit  {
+  @Input("useDataInStore") fetchData: boolean = true;
+  @Input("useSearch") haveSearch: boolean = true;
+
   displayedColumns: string[] = ['select', 'city', 'weather', 'temp', 'humidity', 'pressure', 'sea_level', 'insert_date', 'network_strength'];
   dataSource = new MatTableDataSource<DataTableRow>();
   selection = new SelectionModel<DataTableRow>(true, []);
@@ -64,7 +67,8 @@ export class DataTableComponent implements OnInit  {
     private crudService: CrudService,
     private dataTableService: DataTableService,
     private _liveAnnouncer: LiveAnnouncer,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ){
     this.sortedData = this.dataSource.data.slice();
   }
@@ -95,31 +99,41 @@ export class DataTableComponent implements OnInit  {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       
-      //Santo prego nº2 ;)
       this.isLoading=true;
-      //To simulate, 1s max
       setTimeout(() => {
         this.isLoading=false;
       }, 500)
     });
 
-    this.crudService.getCities().subscribe({
-      next: (value: DataTableRow[]) => this.dataTableService.loadRows(value),
-      error: (e) => {
-        this.toastService.showToast("form.input.error", "error");
-        //To simulate, 1s max
-        setTimeout(() => {
+    if(this.fetchData) {
+      this.crudService.getCities().subscribe({
+        next: (value: DataTableRow[]) => this.dataTableService.loadRows(value),
+        error: (e) => {
+          this.toastService.showToast("form.input.error", "error");
           this.isLoading=false;
-        }, 500)
-      },
-      complete: () => {
-        console.info('Get city list request...');
-        //To simulate, 1s max
-        setTimeout(() => {
+        },
+        complete: () => {
+          console.info('Get city list request...');
           this.isLoading=false;
-        }, 500)
-      }
-    });
+        }
+      });
+    } else {
+      this.route.paramMap.subscribe(params => {
+        const targetCity: string | null = params.get('city');
+        console.log(`Get data from city ${targetCity}`);
+
+        if(targetCity) {
+          this.dataSource = this.dataTableService.getDataRowsByCity(targetCity);
+
+          if(this.dataSource.data.length == 0) {
+            this.router.navigate(['/']);
+          }
+
+        }
+
+        this.isLoading=false;
+      }); 
+    }
 
   }
 
@@ -182,10 +196,12 @@ export class DataTableComponent implements OnInit  {
     });
   }
 
-  selectRow(): void {
-    this.router.navigate(['/', 'detail', 'aveiro'])
+  selectRow(city: string): void {
+    this.router.navigate(['/', 'detail', city])
     .then(nav => {
-      console.log(nav);
+      if(nav) {
+        console.log(`Detail of the city: ${city}`);
+      }
     }, err => {
       console.log(err)
     });

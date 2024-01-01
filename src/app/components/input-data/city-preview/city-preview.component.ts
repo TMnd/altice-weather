@@ -22,14 +22,7 @@ export class CityPreviewComponent implements OnInit {
 
   constructor(
     private cityPreviewService: CityPreviewService
-  ){}
-
-  private convertTempToCelcius(previewData: CityPreviewData) {
-    const tempKelvin = previewData.temperature;
-    return parseInt((tempKelvin - this.KELVIN_FACTOR).toFixed(1));
-  }
-
-  ngOnInit(): void {
+  ){
     this.cityPreviewService.haveNewData.subscribe(() => {
       this.previewData = this.cityPreviewService.getCityPreview();
       if(this.previewData) {
@@ -39,6 +32,15 @@ export class CityPreviewComponent implements OnInit {
         this.weatherIcon = getEnumKeyByValue(WeatherTypes, weather);
       }
     })
+  }
+
+  private convertTempToCelcius(previewData: CityPreviewData): number {
+    const tempKelvin = previewData.temperature;
+    return +(tempKelvin - this.KELVIN_FACTOR).toFixed(1);
+  }
+
+  ngOnInit(): void {
+    
   }
   
 }

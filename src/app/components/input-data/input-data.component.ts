@@ -61,9 +61,9 @@ export class InputDataComponent implements OnInit{
             let newRow: DataTableRow = {
                 city: previewData.city,
                 weather: getEnumKeyByValue(WeatherTypes, previewData.weather),
-                temp: `${previewData.temperature} ºC`,
-                humidity: `${previewData.humidity} %`,
-                pressure: `${previewData.pressure} Pa`,
+                temp: `${previewData.temperature}`,
+                humidity: `${previewData.humidity}`,
+                pressure: `${previewData.pressure}`,
                 sea_level: `${previewData.sea_level}`,
                 insert_date: currentUTCDate.toISOString(),
                 network_strength: this.networkStrength

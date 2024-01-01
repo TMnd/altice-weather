@@ -1,101 +1,94 @@
-<div class="table-container">
-  <div class="table-options">
-    <button mat-fab color="warn" [disabled]="deleteCitiesbuttonDisable" (click)="modal.toggle()">
-      <mat-icon>delete</mat-icon>
-    </button>
-    <mat-form-field>
-      <mat-label>{{ 'data.table.search' | translate }}</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
-    </mat-form-field>
-  </div>
-
-  <table 
-    mat-table 
-    [dataSource]="dataSource"
-    matSort 
-    (matSortChange)="announceSortChange($event)"
-    class="mat-elevation-z8"
-  >
-    <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell empty-data" [attr.colspan]="displayedColumns.length">
-          {{ 'data.table.no.data' | translate }}
-        </td>
-    </tr>
-
-    <!-- Checkbox Column -->
-    <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                      [checked]="selection.hasValue() && isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()">
-        </mat-checkbox>
-      </th>
-      <td mat-cell *matCellDef="let row">
-        <mat-checkbox (click)="$event.stopPropagation()"
-                      (change)="$event ? selection.toggle(row) : null"
-                      [checked]="selection.isSelected(row)">
-        </mat-checkbox>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="city">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-header">{{ 'data.table.label.city' | translate }}</th>
-      <td mat-cell *matCellDef="let element"> {{ element.city }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="weather">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.weather' | translate }}</th>
-      <td mat-cell *matCellDef="let element"> <i class="wi {{ element.weather }} custom-size"></i> </td>
-    </ng-container>
-
-    <ng-container matColumnDef="temp">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.temp' | translate }}</th>
-      <td mat-cell *matCellDef="let element"> {{ element.temp }} </td>
-    </ng-container>
-    
-    <ng-container matColumnDef="humidity">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.humidity' | translate }}</th>
-      <td mat-cell *matCellDef="let element"> {{ element.humidity }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="pressure">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.pressure' | translate }}</th>
-      <td mat-cell *matCellDef="let element"> {{ element.pressure }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="sea_level">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.sea_level' | translate }}</th>
-      <td mat-cell *matCellDef="let element"> {{ element.sea_level }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="insert_date">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">{{ 'data.table.label.insert_date' | translate }}</th>
-      <td mat-cell *matCellDef="let element"> {{ element.insert_date | localtz }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="network_strength">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.network_strength' | translate }}</th>
-      <td mat-cell *matCellDef="let element"> 
-        <span [ngClass]="element.network_strength > 2 ? 'green' : 'red'">
-          <b>{{ element.network_strength }}</b>
-        </span> 
-      </td>
-    </ng-container>
-
-    <!-- Row shown when there is no matching data. -->
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-    </tr>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let element; columns: displayedColumns;"
-        class="example-element-row"
-        (click)="selectRow()">
-    </tr>
-  </table>
-
-  <mat-paginator [pageSizeOptions]="[10, 20, 30, 100]"></mat-paginator>
+<div class="table-options">
+  <button mat-fab color="warn" [disabled]="deleteCitiesbuttonDisable" (click)="modal.toggle()">
+    <mat-icon>delete</mat-icon>
+  </button>
+  <mat-form-field *ngIf="haveSearch">
+    <mat-label>{{ 'data.table.search' | translate }}</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="" #search>
+  </mat-form-field>
 </div>
+
+<table 
+  mat-table 
+  [dataSource]="dataSource"
+  matSort 
+  (matSortChange)="announceSortChange($event)"
+  class="mat-elevation-z8"
+>
+  <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell empty-data" [attr.colspan]="displayedColumns.length">
+        {{ 'data.table.no.data' | translate }}
+      </td>
+  </tr>
+
+  <!-- Checkbox Column -->
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="city">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header class="table-header">{{ 'data.table.label.city' | translate }}</th>
+    <td mat-cell *matCellDef="let element"> {{ element.city }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="weather">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.weather' | translate }}</th>
+    <td mat-cell *matCellDef="let element"> <i class="wi {{ element.weather }} custom-size"></i> </td>
+  </ng-container>
+
+  <ng-container matColumnDef="temp">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.temp' | translate }}</th>
+    <td mat-cell *matCellDef="let element"> {{ element.temp }}ºC </td>
+  </ng-container>
+  
+  <ng-container matColumnDef="humidity">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.humidity' | translate }}</th>
+    <td mat-cell *matCellDef="let element"> {{ element.humidity }}% </td>
+  </ng-container>
+
+  <ng-container matColumnDef="pressure">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.pressure' | translate }}</th>
+    <td mat-cell *matCellDef="let element"> {{ element.pressure }} Pa </td>
+  </ng-container>
+
+  <ng-container matColumnDef="sea_level">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.sea_level' | translate }}</th>
+    <td mat-cell *matCellDef="let element"> {{ element.sea_level }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="insert_date">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by date">{{ 'data.table.label.insert_date' | translate }}</th>
+    <td mat-cell *matCellDef="let element"> {{ element.insert_date | localtz }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="network_strength">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'data.table.label.network_strength' | translate }}</th>
+    <td mat-cell *matCellDef="let element"> 
+      <span [ngClass]="element.network_strength > 2 ? 'green' : 'red'">
+        <b>{{ element.network_strength }}</b>
+      </span> 
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+      class="example-element-row"
+      (click)="selectRow(element.city)">
+  </tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[10, 20, 30, 100]"></mat-paginator>
 
 <div *ngIf="isLoading" class="spinner-container">
   <div class="inner">

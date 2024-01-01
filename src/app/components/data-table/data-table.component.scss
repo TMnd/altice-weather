@@ -1,36 +1,32 @@
-.table-container {
-    padding: 30px;
+.table-options {
+    padding: 20px;
+}
 
-    .table-options {
-        padding: inherit;
+table {
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+
+    .empty-data {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        text-align: center;
     }
 
-    table {
-        width: 100%;
-        border-bottom: 1px solid lightgray;
-
-        .empty-data {
-            padding-top: 20px;
-            padding-bottom: 20px;
-            text-align: center;
-        }
-
-        .custom-size {
-            font-size: 30px;
-        }
-
-        .red {
-            color: red;
-        }
-
-        .green {
-            color: green;
-        }
+    .custom-size {
+        font-size: 30px;
     }
 
-    tr.example-element-row:not(.example-expanded-row):hover {
-        background: whitesmoke;
+    .red {
+        color: red;
     }
+
+    .green {
+        color: green;
+    }
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+    background: whitesmoke;
 }
 
 .mat-mdc-form-field {

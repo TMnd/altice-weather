@@ -2,9 +2,9 @@ import { APP_INITIALIZER, ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
+import { provideHttpClient } from '@angular/common/http';
 import { AppInitService } from './shared/services/app-init.service';
+import { provideEcharts } from 'ngx-echarts';
 
 export function initializeApp(appInitService: AppInitService): Function {
   console.log(`Language loaded => ${navigator.language}`);
@@ -22,5 +22,6 @@ export const appConfig: ApplicationConfig = {
       multi: true,
       deps: [AppInitService],
     },
+    provideEcharts()
   ]
 };

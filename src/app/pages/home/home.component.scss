@@ -10,7 +10,13 @@
     height: 97vh;
 }
   
-.data-table { grid-area: data-table; }
+.data-table { 
+    grid-area: data-table; 
+
+    .table-container {
+        padding: 30px;
+    }
+}
 
 .input { grid-area: input; }
 

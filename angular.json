@@ -33,7 +33,8 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
               "node_modules/flag-icons/css/flag-icons.css",
-              "node_modules/weather-icons/css/weather-icons.min.css"
+              "node_modules/weather-icons/css/weather-icons.min.css",
+              "node_modules/c3/c3.min.css"
             ],
             "scripts": []
           },

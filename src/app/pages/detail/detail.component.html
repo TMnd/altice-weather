@@ -1,2 +1,24 @@
-<button (click)="return()">Return</button>
-<p>detail works!</p>
+<header>
+    <fa-icon 
+        [icon]="returnIcon"
+        (click)="return()"
+    ></fa-icon>
+</header>
+<div class="table-container">
+    <app-data-table
+        [useDataInStore]="false"
+        [useSearch]="false"
+    ></app-data-table>
+</div>
+<div class="charts">
+    <h2>{{ 'data.table.label.temp' | translate }}</h2>
+    <app-chart
+        [dataSource]="tempGraphData"
+    ></app-chart>
+    <h2>{{ 'data.table.label.network_strength' | translate }}</h2>
+    <app-chart
+        [dataSource]="networkStrengthGraphData"
+    ></app-chart>
+</div>
+
+

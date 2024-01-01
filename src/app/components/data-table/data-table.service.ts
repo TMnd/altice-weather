@@ -14,6 +14,10 @@ export class DataTableService {
         return this.rows;
     }
 
+    getDataRowsByCity(targetCity: string): MatTableDataSource<DataTableRow> {
+        return new MatTableDataSource(this.rows.data.filter((row: DataTableRow) => row.city === targetCity));
+    }
+
     addRow(row: DataTableRow): void {
         const refData = this.rows.data;
         refData.push(row);
