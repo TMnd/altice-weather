@@ -12,7 +12,7 @@ jobs:
         with:
           node-version: 18.13.0
       - name: Build and Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v2
+        uses: JamesIves/github-pages-deploy-action@releases/v4.5.0
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BASE_BRANCH: master
