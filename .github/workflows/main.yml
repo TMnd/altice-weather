@@ -18,7 +18,7 @@ jobs:
       - name: Install and Build 🔧
         run: |
           npm install
-          ng build --configuration-production --base-href https://tmnd.github.io/alticelabs-weather/
+          npm run ng build --configuration-production --base-href https://tmnd.github.io/alticelabs-weather/
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
