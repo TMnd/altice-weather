@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../enviroments/enviroment';
+import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { City, CityData } from '../../components/input-data/city-search/model/city.interface';
 

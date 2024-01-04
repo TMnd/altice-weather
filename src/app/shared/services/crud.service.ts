@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { environment } from "../../enviroments/enviroment";
+import { environment } from "../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ToastService } from "./toast.service";
 import { DataTableRow } from "../../components/data-table/data-table-row.interface";
