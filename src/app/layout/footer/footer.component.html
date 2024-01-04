@@ -3,7 +3,38 @@
         <p>
             <b>João Luís Amaral</b> &copy; {{ currentYear }}
         </p>
-        <button mat-stroked-button>{{ 'footer.about' | translate }}</button>
+        <button 
+            mat-stroked-button
+            (click)="modal.toggle()"
+        >{{ 'footer.about' | translate }}</button>
     </div>
-    
 </footer>
+
+<app-modal 
+  #modal
+  [title]="'footer.about'"
+  [context]="'default'"
+>
+    <p><b>Frontend</b>: Angular v{{ angularVersion }}</p>
+    <p><b>Backend</b>: https://crudcrud.com/</p>
+    <div class="icons">
+        <fa-icon 
+            [icon]="gitHubIcon"
+            (click)="openLink('https://github.com/tmnd')"
+            class="enable-icon"
+            title="{{ 'footer.github.page' | translate }}"
+        ></fa-icon>
+        <fa-icon 
+            [icon]="linkedin"
+            (click)="openLink('https://www.linkedin.com/in/amaraljoao/')"
+            class="enable-icon"
+            title="{{ 'footer.linkedin.page' | translate }}"
+        ></fa-icon>
+        <fa-icon 
+            [icon]="cv"
+            ng-disabled='true'
+            class="disable-icon"
+            title="{{ 'footer.download.cv' | translate }}"
+        ></fa-icon>
+    </div>
+</app-modal> 

@@ -35,5 +35,8 @@
     "form.input.success": "Dado adicionado com sucesso",
     "spinner.message": "A processar...",
     "modal.title.confirm.execution": "Confirmação e execução",
-    "modal.body": "Quer apagar as cidades selecionadas?"
+    "modal.body": "Quer apagar as cidades selecionadas?",
+    "footer.github.page": "Github",
+    "footer.linkedin.page": "Linkedin",
+    "footer.download.cv": "Download o meu CV"
 }

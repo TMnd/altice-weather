@@ -18,13 +18,15 @@ export class ModalComponent {
   @Input() title: string = "";
   @Input() context: string = "";
   @Input() body: string = "";
-  @Input() submitClick!: Function;
+  @Input() submitClick?: Function;
   
   showModal: boolean = false;
 
   submitAction(): void {
-    this.submitClick();
-    this.toggle();
+    if(this.submitClick) {
+      this.submitClick();
+      this.toggle();
+    }
   }
 
   toggle(): void {

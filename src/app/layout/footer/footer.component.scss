@@ -20,3 +20,21 @@ footer {
         }
     }
 }
+
+.icons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    font-size: 50px;
+    justify-content: space-around;
+    margin-top: 35px;
+
+    .enable-icon:hover{
+        color:#3f51b5;
+        cursor: pointer;
+    }
+    
+    .disable-icon{
+        color:gray;
+    }
+}
