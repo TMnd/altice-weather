@@ -102,7 +102,7 @@ export class DataTableComponent implements OnInit  {
       this.isLoading=true;
       setTimeout(() => {
         this.isLoading=false;
-      }, 500)
+      }, 500);
     });
 
     if(this.fetchData) {

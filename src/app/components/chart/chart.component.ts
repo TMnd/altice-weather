@@ -42,7 +42,5 @@ export class ChartComponent implements OnInit {
         },
       ],
     };
-
-    console.log(this.chartOption);
   }
 }
